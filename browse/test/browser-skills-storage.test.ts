@@ -1,7 +1,7 @@
 /**
  * browser-skills storage tests — covers the 3-tier walk, frontmatter parsing,
  * tombstone semantics. Uses tmp dirs for hermetic isolation; never touches
- * real ~/.gstack/ or the gstack install.
+ * real ./dstack/ or the gstack install.
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'bun:test';

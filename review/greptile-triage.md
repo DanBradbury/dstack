@@ -185,12 +185,12 @@ Before writing, ensure both directories exist:
 ```bash
 REMOTE_SLUG=$(browse/bin/remote-slug 2>/dev/null || ~/.claude/skills/gstack/browse/bin/remote-slug 2>/dev/null || basename "$(git rev-parse --show-toplevel 2>/dev/null || pwd)")
 mkdir -p "$HOME/.gstack/projects/$REMOTE_SLUG"
-mkdir -p ~/.gstack
+mkdir -p ./dstack
 ```
 
 Append one line per triage outcome to **both** files (per-project for suppressions, global for retro):
-- `~/.gstack/projects/$REMOTE_SLUG/greptile-history.md` (per-project)
-- `~/.gstack/greptile-history.md` (global aggregate)
+- `./dstack/projects/$REMOTE_SLUG/greptile-history.md` (per-project)
+- `./dstack/greptile-history.md` (global aggregate)
 
 Format:
 ```

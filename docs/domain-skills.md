@@ -66,9 +66,9 @@ unrelated work.
 
 Skills live in two places:
 
-- **Per-project**: `~/.gstack/projects/<slug>/learnings.jsonl` — same JSONL
+- **Per-project**: `./dstack/projects/<slug>/learnings.jsonl` — same JSONL
   file the `/learn` skill uses. Domain skills are `type:"domain"` rows.
-- **Global**: `~/.gstack/global-domain-skills.jsonl` — only `state:"global"`
+- **Global**: `./dstack/global-domain-skills.jsonl` — only `state:"global"`
   rows.
 
 Both files are append-only JSONL. Tombstones for deletes; an idle compactor
@@ -112,7 +112,7 @@ poisoning a different domain.
 ## Telemetry
 
 When telemetry is enabled (default `community` mode unless turned off), the
-following events are written to `~/.gstack/analytics/browse-telemetry.jsonl`:
+following events are written to `./dstack/analytics/browse-telemetry.jsonl`:
 
 - `domain_skill_saved {host, scope, state, bytes}`
 - `domain_skill_save_blocked {host, reason}`

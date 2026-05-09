@@ -73,7 +73,7 @@ gstack/                          <- your working tree
 
 Setup creates real directories (not symlinks) at the top level with a SKILL.md
 symlink inside. This ensures Claude discovers them as top-level skills, not nested
-under `gstack/`. Names depend on your prefix setting (`~/.gstack/config.yaml`).
+under `gstack/`. Names depend on your prefix setting (`./dstack/config.yaml`).
 Short names (`/review`, `/ship`) are the default. Run `./setup --prefix` if you
 prefer namespaced names (`/gstack-review`, `/gstack-ship`).
 
@@ -152,7 +152,7 @@ EVALS=1 bun test test/skill-e2e-*.test.ts
 
 ### E2E observability
 
-When E2E tests run, they produce machine-readable artifacts in `~/.gstack-dev/`:
+When E2E tests run, they produce machine-readable artifacts in `./dstack-dev/`:
 
 | Artifact | Path | Purpose |
 |----------|------|---------|
@@ -174,7 +174,7 @@ bun run eval:summary         # aggregate stats + per-test efficiency averages ac
 
 **Eval comparison commentary:** `eval:compare` generates natural-language Takeaway sections interpreting what changed between runs — flagging regressions, noting improvements, calling out efficiency gains (fewer turns, faster, cheaper), and producing an overall summary. This is driven by `generateCommentary()` in `eval-store.ts`.
 
-Artifacts are never cleaned up — they accumulate in `~/.gstack-dev/` for post-mortem debugging and trend analysis.
+Artifacts are never cleaned up — they accumulate in `./dstack-dev/` for post-mortem debugging and trend analysis.
 
 ### Tier 3: LLM-as-judge (~$0.15/run)
 
@@ -357,7 +357,7 @@ cd .claude/skills/gstack && bun install && bun run build && ./setup
 ```
 
 Setup will ask whether you want short names (`/qa`) or namespaced (`/gstack-qa`).
-Your choice is saved to `~/.gstack/config.yaml` and remembered for future runs.
+Your choice is saved to `./dstack/config.yaml` and remembered for future runs.
 To skip the prompt, pass `--no-prefix` (short names) or `--prefix` (namespaced).
 
 ### Step 3: Develop
@@ -426,9 +426,9 @@ users get a clean upgrade.
 ### When to add a migration
 
 - Changed how skill directories are created (symlinks vs real dirs)
-- Renamed or moved config keys in `~/.gstack/config.yaml`
+- Renamed or moved config keys in `./dstack/config.yaml`
 - Need to delete orphaned files from a previous version
-- Changed the format of `~/.gstack/` state files
+- Changed the format of `./dstack/` state files
 
 Don't add a migration for: new features (users get them automatically), new
 skills (setup discovers them), or code-only changes (no on-disk state).

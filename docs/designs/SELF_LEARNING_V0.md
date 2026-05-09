@@ -52,7 +52,7 @@ a week and notice when it asks the same question twice.
 ## State Systems
 
 gstack has four distinct persistence layers. They share storage patterns
-(JSONL in `~/.gstack/projects/$SLUG/`) but serve different purposes:
+(JSONL in `./dstack/projects/$SLUG/`) but serve different purposes:
 
 | System | File | What it stores | Written by | Read by |
 |--------|------|---------------|------------|---------|
@@ -74,7 +74,7 @@ different question.
 **Headline:** Every session makes the next one smarter.
 
 What shipped:
-- Learnings persistence at `~/.gstack/projects/{slug}/learnings.jsonl`
+- Learnings persistence at `./dstack/projects/{slug}/learnings.jsonl`
 - `/learn` skill for manual review, search, prune, export
 - Confidence calibration on all review findings (1-10 scores with display rules)
 - Confidence decay for observed/inferred learnings (1pt/30d)
@@ -144,7 +144,7 @@ What ships:
 
 What shipped:
 - Session timeline: every skill auto-logs start/complete events to
-  `~/.gstack/projects/$SLUG/timeline.jsonl`. Local-only, never sent anywhere,
+  `./dstack/projects/$SLUG/timeline.jsonl`. Local-only, never sent anywhere,
   always on regardless of telemetry setting.
 - Context recovery: after compaction or session start, preamble lists recent CEO
   plans, checkpoints, and reviews. Agent reads the most recent to recover context.

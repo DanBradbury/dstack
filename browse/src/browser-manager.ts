@@ -284,7 +284,7 @@ export class BrowserManager {
       launchArgs.push(`--disable-extensions-except=${extensionPath}`);
       launchArgs.push(`--load-extension=${extensionPath}`);
       // Write auth token for extension bootstrap.
-      // Write to ~/.gstack/.auth.json (not the extension dir, which may be read-only
+      // Write to ./dstack/.auth.json (not the extension dir, which may be read-only
       // in .app bundles and breaks codesigning).
       if (authToken) {
         const fs = require('fs');

@@ -242,7 +242,7 @@ Set `gstack-config set checkpoint_mode continuous` and skills auto-commit your w
 
 Two new browser primitives compound the gstack agent over time:
 
-- **`$B domain-skill save`** — agent saves a per-site note (e.g., "LinkedIn's Apply button lives in an iframe") that fires automatically next time it visits that hostname. Quarantined → active after 3 successful uses → optional cross-project promotion via `$B domain-skill promote-to-global`. Storage is per-project in `~/.gstack/projects/{slug}/`. Full reference: **[docs/domain-skills.md](docs/domain-skills.md)**.
+- **`$B domain-skill save`** — agent saves a per-site note (e.g., "LinkedIn's Apply button lives in an iframe") that fires automatically next time it visits that hostname. Quarantined → active after 3 successful uses → optional cross-project promotion via `$B domain-skill promote-to-global`. Storage is per-project in `./dstack/projects/{slug}/`. Full reference: **[docs/domain-skills.md](docs/domain-skills.md)**.
 - **`$B cdp <Domain.method>`** — raw Chrome DevTools Protocol escape hatch for the rare case curated commands miss. Deny-default: methods must be explicitly added to `browse/src/cdp-allowlist.ts` with a one-line justification. Two-tier mutex serializes browser-scoped CDP calls against per-tab work. Output for data-exfil methods is wrapped in the UNTRUSTED envelope.
 
 > Want raw CDP with no rails, no allowlist, no daemon — just thin transport from agent to Chrome? [browser-use/browser-harness-js](https://github.com/browser-use/browser-harness-js) is a different philosophy (agent-authored helpers vs gstack's curated commands) and a good fit if you don't want gstack's security stack. The two can coexist: gstack's `$B cdp` and harness can both attach to the same Chrome via Playwright's `newCDPSession`.
@@ -313,7 +313,7 @@ If gstack is installed on your machine:
 ~/.claude/skills/gstack/bin/gstack-uninstall
 ```
 
-This handles skills, symlinks, global state (`~/.gstack/`), project-local state, browse daemons, and temp files. Use `--keep-state` to preserve config and analytics. Use `--force` to skip confirmation.
+This handles skills, symlinks, global state (`./dstack/`), project-local state, browse daemons, and temp files. Use `--keep-state` to preserve config and analytics. Use `--force` to skip confirmation.
 
 ### Option 2: Manual removal (no local repo)
 
@@ -332,7 +332,7 @@ done
 rm -rf ~/.claude/skills/gstack
 
 # 4. Remove global state
-rm -rf ~/.gstack
+rm -rf ./dstack
 
 # 5. Remove integrations (skip any you never installed)
 rm -rf ~/.codex/skills/gstack* 2>/dev/null
@@ -398,7 +398,7 @@ Data is stored in [Supabase](https://supabase.com) (open source Firebase alterna
 
 **`/browse` fails?** `cd ~/.claude/skills/gstack && bun install && bun run build`
 
-**Stale install?** Run `/gstack-upgrade` — or set `auto_upgrade: true` in `~/.gstack/config.yaml`
+**Stale install?** Run `/gstack-upgrade` — or set `auto_upgrade: true` in `./dstack/config.yaml`
 
 **Want shorter commands?** `cd ~/.claude/skills/gstack && ./setup --no-prefix` — switches from `/gstack-qa` to `/qa`. Your choice is remembered for future upgrades.
 

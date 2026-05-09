@@ -146,7 +146,7 @@ export function canDispatchOverTunnel(command: string | undefined | null): boole
 }
 
 /**
- * Read ngrok authtoken from env var, ~/.gstack/ngrok.env, or ngrok's native
+ * Read ngrok authtoken from env var, ./dstack/ngrok.env, or ngrok's native
  * config files.  Returns null if nothing found.  Shared between the
  * /tunnel/start handler and the BROWSE_TUNNEL=1 auto-start flow.
  */
@@ -1164,7 +1164,7 @@ async function start() {
   //
   // On the tunnel surface: reject anything not in TUNNEL_PATHS (404), reject
   // root-token bearers (403), and require a scoped token for everything
-  // except /connect.  Denials are logged to ~/.gstack/security/attempts.jsonl.
+  // except /connect.  Denials are logged to ./dstack/security/attempts.jsonl.
   const makeFetchHandler = (surface: Surface) => async (req: Request): Promise<Response> => {
     const url = new URL(req.url);
 
@@ -1221,7 +1221,7 @@ async function start() {
         const welcomePath = (() => {
           // Gate GSTACK_SLUG on a strict regex BEFORE interpolating it into
           // the filesystem path. Without this, a slug like "../../etc/passwd"
-          // would resolve to ~/.gstack/projects/../../etc/passwd/... — path
+          // would resolve to ./dstack/projects/../../etc/passwd/... — path
           // traversal.  Not exploitable today (attacker needs local env-var
           // access), but the gate is one regex and buys us defense-in-depth.
           const rawSlug = process.env.GSTACK_SLUG || 'unknown';
@@ -2181,7 +2181,7 @@ async function start() {
   if (process.env.BROWSE_TUNNEL === '1') {
     const authtoken = resolveNgrokAuthtoken();
     if (!authtoken) {
-      console.error('[browse] BROWSE_TUNNEL=1 but no NGROK_AUTHTOKEN found. Set it via env var or ~/.gstack/ngrok.env');
+      console.error('[browse] BROWSE_TUNNEL=1 but no NGROK_AUTHTOKEN found. Set it via env var or ./dstack/ngrok.env');
     } else {
       let boundTunnel: ReturnType<typeof Bun.serve> | null = null;
       try {

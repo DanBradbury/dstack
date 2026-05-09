@@ -14,7 +14,7 @@ If B: run \`${ctx.paths.binDir}/gstack-config set proactive false\`
 
 Always run:
 \`\`\`bash
-touch ~/.gstack/.proactive-prompted
+touch ./dstack/.proactive-prompted
 \`\`\`
 
 Skip if \`PROACTIVE_PROMPTED\` is \`yes\`.`;

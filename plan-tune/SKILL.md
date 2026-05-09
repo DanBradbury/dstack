@@ -140,7 +140,7 @@ Power-user shortcuts (one-word invocations) — handle these too:
 
    After each answer, map A/B/C to the numeric value and save the declared
    dimension. Write each declaration directly into
-   `~/.gstack/developer-profile.json` under `declared.{dimension}`:
+   `./dstack/developer-profile.json` under `declared.{dimension}`:
 
    ```bash
    # Ensure profile exists

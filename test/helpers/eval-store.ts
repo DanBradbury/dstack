@@ -2,7 +2,7 @@
  * Eval result persistence and comparison.
  *
  * EvalCollector accumulates test results, writes them to
- * ~/.gstack/projects/$SLUG/evals/{version}-{branch}-{tier}-{timestamp}.json,
+ * ./dstack/projects/$SLUG/evals/{version}-{branch}-{tier}-{timestamp}.json,
  * prints a summary table, and auto-compares with the previous run.
  *
  * Comparison functions are exported for reuse by the eval:compare CLI.
@@ -18,7 +18,7 @@ const LEGACY_EVAL_DIR = path.join(os.homedir(), '.gstack-dev', 'evals');
 
 /**
  * Detect project-scoped eval dir via gstack-slug.
- * Falls back to legacy ~/.gstack-dev/evals/ if slug detection fails.
+ * Falls back to legacy ./dstack-dev/evals/ if slug detection fails.
  */
 export function getProjectEvalDir(): string {
   try {

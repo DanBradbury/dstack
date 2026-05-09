@@ -134,7 +134,7 @@ AskUserQuestion:
 - **Simplify:** "Save this benchmark as JSON so you can compare future runs against it?"
 - **RECOMMENDATION:** A — skill performance drifts as providers update their models; a saved baseline catches quality regressions.
 - **Options:**
-  - A) Save to `~/.gstack/benchmarks/<date>-<skill-or-prompt-slug>.json`. Completeness: 10/10.
+  - A) Save to `./dstack/benchmarks/<date>-<skill-or-prompt-slug>.json`. Completeness: 10/10.
   - B) Just print, don't save. Completeness: 5/10 (loses trend data).
 
 If A: re-run with `--output json` and tee to the dated file. Print the path so the user can diff future runs against it.

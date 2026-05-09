@@ -13,7 +13,7 @@
  * On success this writes:
  *   - browse/test/fixtures/security-bench-haiku-responses.json (fixture
  *     consumed by the CI-gate test security-bench-ensemble.test.ts)
- *   - ~/.gstack-dev/evals/security-bench-ensemble-{timestamp}.json (per-run
+ *   - ./dstack-dev/evals/security-bench-ensemble-{timestamp}.json (per-run
  *     audit record with TP/FN/FP/TN + Wilson 95% CIs + knob state)
  *
  * Stop-loss iterations: when detection or FP fails the gate, set

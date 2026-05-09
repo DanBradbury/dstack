@@ -69,7 +69,7 @@ echo "$_REMOTE_VER $_NEW_LEVEL $(date +%s)" > "$_SNOOZE_FILE"
 ```
 Note: `{new}` is the remote version from the `UPGRADE_AVAILABLE` output — substitute it from the update check result.
 
-Tell user the snooze duration: "Next reminder in 24h" (or 48h or 1 week, depending on level). Tip: "Set `auto_upgrade: true` in `~/.gstack/config.yaml` for automatic upgrades."
+Tell user the snooze duration: "Next reminder in 24h" (or 48h or 1 week, depending on level). Tip: "Set `auto_upgrade: true` in `./dstack/config.yaml` for automatic upgrades."
 
 **If "Never ask again":**
 ```bash
@@ -218,10 +218,10 @@ for how to add new migrations.
 ### Step 5: Write marker + clear cache
 
 ```bash
-mkdir -p ~/.gstack
-echo "$OLD_VERSION" > ~/.gstack/just-upgraded-from
-rm -f ~/.gstack/last-update-check
-rm -f ~/.gstack/update-snoozed
+mkdir -p ./dstack
+echo "$OLD_VERSION" > ./dstack/just-upgraded-from
+rm -f ./dstack/last-update-check
+rm -f ./dstack/update-snoozed
 ```
 
 ### Step 6: Show What's New

@@ -5,7 +5,7 @@ export function generateLakeIntro(): string {
 
 \`\`\`bash
 open https://garryslist.org/posts/boil-the-ocean
-touch ~/.gstack/.completeness-intro-seen
+touch ./dstack/.completeness-intro-seen
 \`\`\`
 
 Only run \`open\` if yes. Always run \`touch\`.`;

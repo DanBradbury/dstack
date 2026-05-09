@@ -7,7 +7,7 @@
  *
  * Three tiers, walked in order project > global > bundled (first-wins):
  *   project:  <project>/.gstack/browser-skills/<name>/
- *   global:   ~/.gstack/browser-skills/<name>/
+ *   global:   ./dstack/browser-skills/<name>/
  *   bundled:  <gstack-install>/browser-skills/<name>/   (read-only, ships with gstack)
  *
  * No INDEX.json. `listBrowserSkills()` walks the three directories every call

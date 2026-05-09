@@ -75,7 +75,7 @@ function formatSavedOk(row: DomainSkillRow, slug: string): string {
     `Host: ${row.host}`,
     `Bytes: ${row.body.length}`,
     `Version: ${row.version}`,
-    `Stored at: ~/.gstack/projects/${slug}/domain-skills.jsonl`,
+    `Stored at: ./dstack/projects/${slug}/domain-skills.jsonl`,
     '',
     `Next: skill is quarantined and won't fire in prompts until used 3 times`,
     `      without classifier flags. Run $B domain-skill list to see state.`,
@@ -222,7 +222,7 @@ async function handlePromoteToGlobal(args: string[]): Promise<string> {
   const row = await promoteToGlobal(host, slug);
   return [
     `Promoted ${row.host} to global scope (v${row.version}).`,
-    `Stored at: ~/.gstack/global-domain-skills.jsonl`,
+    `Stored at: ./dstack/global-domain-skills.jsonl`,
     '',
     `This skill now fires for all projects unless they have a per-project skill for the same host.`,
   ].join('\n');

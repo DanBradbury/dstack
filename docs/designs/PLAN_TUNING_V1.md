@@ -77,7 +77,7 @@ The through-line: every review pass correctly narrowed the ambition until the re
 - **ELI10 as a new resolver file (`scripts/resolvers/eli10-writing.ts`).** Codex Pass 1 caught the conflict with existing "smart 16-year-old" framing in preamble's AskUserQuestion Format section. Fold into existing preamble instead.
 - **Runtime suppression of the Writing Style block.** Codex Pass 1 caught that `gen-skill-docs` produces static Markdown — runtime `EXPLAIN_LEVEL=terse` can't hide content already baked in. Solution: conditional prose gate (prose convention, same category as V0's `QUESTION_TUNING` gate).
 - **Middle writing mode between default and terse.** Revision 3 proposed "terse = no glosses but keep outcome framing." Codex Pass 2 caught the contradiction with migration messaging. Binary wins: terse = V0 prose, full stop.
-- **User-editable jargon list at runtime.** Revision 3 proposed `~/.gstack/jargon-list.json` as user override. Codex Pass 2 caught the contradiction with gen-time inlining. Resolved: repo-owned only, PRs to add/remove, regenerate to take effect.
+- **User-editable jargon list at runtime.** Revision 3 proposed `./dstack/jargon-list.json` as user override. Codex Pass 2 caught the contradiction with gen-time inlining. Resolved: repo-owned only, PRs to add/remove, regenerate to take effect.
 - **`devDependencies.optional` field in package.json.** Not a real npm/bun field. Eng review Pass 2 caught. Standalone install script instead.
 - **Using the same string as replacement anchor AND CI-reject marker in README.** Eng review Pass 2 / Codex Pass 2 caught that this makes the pipeline destroy its own update path. Two-string solution: `GSTACK-THROUGHPUT-PLACEHOLDER` (anchor, stays across runs) vs `GSTACK-THROUGHPUT-PENDING` (explicit "build didn't run" marker that CI rejects).
 - **"Every technical term gets a gloss" as acceptance criterion.** Codex Pass 2 caught the contradiction with the curated-list rule. Acceptance rewritten to match rule: "every term on `scripts/jargon-list.json` that appears gets a gloss."
@@ -86,7 +86,7 @@ The through-line: every review pass correctly narrowed the ambition until the re
 ## Architecture
 
 ```
-~/.gstack/
+./dstack/
   developer-profile.json           # unchanged from V0
   config.yaml                       # + explain_level key (default | terse)
 
@@ -197,7 +197,7 @@ bun run scripts/garry-output-comparison.ts
 
 ### Decision D: Jargon list location — runtime-user-editable vs. repo-owned gen-time — ANSWER: REPO-OWNED GEN-TIME
 
-**User-editable at runtime (rejected):** `~/.gstack/jargon-list.json` overrides `scripts/jargon-list.json`.
+**User-editable at runtime (rejected):** `./dstack/jargon-list.json` overrides `scripts/jargon-list.json`.
 - Pros: User can add terms specific to their domain.
 - Cons (Codex #4, Pass 2): Gen-time inlining means user edits require regeneration. Contradiction.
 
@@ -234,4 +234,4 @@ bun run scripts/garry-output-comparison.ts
 | Eng Review | 3 | CLEAR (SCOPE_REDUCED) | Pass 1: critical gaps + 3 decisions (all A). Pass 2: scoring-formula bug, path contradiction, fake `devDependencies.optional` field. Pass 3: identified pacing structural gaps, drove extraction. |
 | DX Review | 1 | CLEAR (TRIAGE) | 3 critical (docs plan, upgrade migration, hero moment). 9 auto-accepted as Silent DX Decisions. |
 
-Review report persisted in `~/.gstack/` via `gstack-review-log`. Plan file retained with full history at `~/.claude/plans/system-instruction-you-are-working-transient-sunbeam.md`.
+Review report persisted in `./dstack/` via `gstack-review-log`. Plan file retained with full history at `~/.claude/plans/system-instruction-you-are-working-transient-sunbeam.md`.

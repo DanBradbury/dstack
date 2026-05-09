@@ -24,7 +24,7 @@ If B→B: run \`${ctx.paths.binDir}/gstack-config set telemetry off\`
 
 Always run:
 \`\`\`bash
-touch ~/.gstack/.telemetry-prompted
+touch ./dstack/.telemetry-prompted
 \`\`\`
 
 Skip if \`TEL_PROMPTED\` is \`yes\`.`;

@@ -87,7 +87,7 @@ The plan as approved replaces the existing P1.
    against). Disk cost: ~3KB per skill.
 5. **Three-tier lookup: bundled → global → project.** Bundled skills ship
    read-only with the gstack install (`<gstack-install>/browser-skills/<name>/`).
-   Global at `~/.gstack/browser-skills/<name>/`. Per-project at
+   Global at `./dstack/browser-skills/<name>/`. Per-project at
    `<project>/.gstack/browser-skills/<name>/`. Lookup walks tiers in priority
    order project → global → bundled; first hit wins. **`$B skill list`
    prints the resolved tier alongside each skill name** so "why did it run
@@ -221,7 +221,7 @@ sibling `/automate` deferred to Phase 2b (P0 in TODOS).
 |----|----------|-----------------|
 | **D1** | `/skillify` provenance guard | Walk back ≤10 agent turns looking for a clearly-bounded `/scrape` invocation (the prototype's intent line + its trailing JSON output). If not found, refuse with: *"No recent /scrape result found in this conversation. Run /scrape <intent> first, then say /skillify."* No silent fallback. |
 | **D2** | Synthesis input slice | Template instructs the agent to extract ONLY the final-attempt `$B` calls that produced the JSON the user accepted, plus the user's stated intent string. Drop failed selector attempts, drop unrelated chat, drop earlier-session content. Closes Codex finding #6 by picking option (b) (re-prompt from agent's own context, not a structured recorder). |
-| **D3** | Atomic write discipline | `/skillify` writes to `~/.gstack/.tmp/skillify-<spawnId>/`, runs `$B skill test` against the temp dir, and only renames into the final tier path on success + user approval. On test failure or approval rejection: `rm -rf` the temp dir entirely (no tombstone for never-approved skills). New module `browse/src/browser-skill-write.ts` (`stageSkill` / `commitSkill` / `discardStaged`) with `realpath`/`lstat` discipline per Codex finding #5. |
+| **D3** | Atomic write discipline | `/skillify` writes to `./dstack/.tmp/skillify-<spawnId>/`, runs `$B skill test` against the temp dir, and only renames into the final tier path on success + user approval. On test failure or approval rejection: `rm -rf` the temp dir entirely (no tombstone for never-approved skills). New module `browse/src/browser-skill-write.ts` (`stageSkill` / `commitSkill` / `discardStaged`) with `realpath`/`lstat` discipline per Codex finding #5. |
 | **D4** | Test scope | 5 gate-tier E2E (scrape match, scrape prototype, skillify happy, skillify provenance refusal, approval-gate reject) + 1 unit test (atomic-write helper failure cleanup) + 1 hand-verified smoke (mutating-intent refusal). Registered in `test/helpers/touchfiles.ts`. |
 
 ### Carry-overs

@@ -53,7 +53,7 @@ Summary of every decision made during the engineering review. Full rationale is 
 
 **Code quality (Section 2):**
 7. **Per-rule regex timeout, no RE2 dep.** Run each rule's regex via a 50ms AbortSignal budget; on timeout, skip the rule and record `meta.regexTimedOut: [ruleId]`. Avoids a WASM dependency and keeps rule-author syntax unconstrained.
-8. **Pre-compiled rule bundle.** `gstack compact install` and `gstack compact reload` produce `~/.gstack/compact/rules.bundle.json` (deep-merged, regex-compiled metadata cached). Hook reads that single file instead of parsing N source files.
+8. **Pre-compiled rule bundle.** `gstack compact install` and `gstack compact reload` produce `./dstack/compact/rules.bundle.json` (deep-merged, regex-compiled metadata cached). Hook reads that single file instead of parsing N source files.
 9. **Auto-reload on mtime drift.** Hook stats rule source files on startup; if any source file is newer than the bundle, rebuild in-line before applying. Adds ~0.5ms/invocation but eliminates the "I edited a rule and nothing changed" footgun.
 10. **Expanded v1 redaction set.** Tee files redact: AWS keys, GitHub tokens (`ghp_/gho_/ghs_/ghu_`), GitLab tokens (`glpat-`), Slack webhooks, generic JWT (three base64 segments), generic bearer tokens, SSH private-key headers (`-----BEGIN * PRIVATE KEY-----`). Credit cards / SSNs / per-key env-pairs deferred to a full DLP layer in v2.
 
@@ -138,7 +138,7 @@ RTK is the only direct competitor. Everything else compresses a different token 
 │  d. Record reduction metadata                                   │
 │  e. Evaluate verifier triggers                                  │
 │  f. If trigger met: call Haiku, append preserved lines          │
-│  g. On failure exit code: tee raw to ~/.gstack/compact/tee/...  │
+│  g. On failure exit code: tee raw to ./dstack/compact/tee/...  │
 │  h. Emit JSON envelope to stdout                                │
 └────────────────────┬────────────────────────────────────────────┘
                      │ stdout (JSON envelope)
@@ -297,10 +297,10 @@ The verifier never rewrites the compacted output. It only appends missing lines 
 
 ### Tee mode (adopted from RTK)
 
-On any command with exit code ≠ 0, the full unfiltered output is written to `~/.gstack/compact/tee/{timestamp}_{cmd-slug}.log`. The compacted output includes a tee-file pointer:
+On any command with exit code ≠ 0, the full unfiltered output is written to `./dstack/compact/tee/{timestamp}_{cmd-slug}.log`. The compacted output includes a tee-file pointer:
 
 ```
-[gstack-compact: 247 → 18 lines, rule: tests/jest, tee: ~/.gstack/compact/tee/20260416-143022_bun-test.log]
+[gstack-compact: 247 → 18 lines, rule: tests/jest, tee: ./dstack/compact/tee/20260416-143022_bun-test.log]
 ```
 
 The agent can read the tee file directly if it needs the full stack trace. This replaces the earlier `onFailure.preserveFull` mechanic with a cleaner design: compacted output always stays small; raw output is always one `cat` away.
@@ -334,7 +334,7 @@ exclude_commands = ["curl", "playwright"]   # RTK pattern
 
 [compact.bundle]
 auto_reload_on_mtime_drift = true           # hook rebuilds bundle if source rule files are newer
-bundle_path = "~/.gstack/compact/rules.bundle.json"
+bundle_path = "./dstack/compact/rules.bundle.json"
 
 [compact.regex]
 per_rule_timeout_ms = 50                    # AbortSignal budget per regex; timeout → skip rule
@@ -356,7 +356,7 @@ cleanup_days = 7
 [compact.benchmark]
 local_only = true                           # hard-coded; config is documentary, cannot be changed
 transcript_root = "~/.claude/projects"
-output_dir = "~/.gstack/compact/benchmark"
+output_dir = "./dstack/compact/benchmark"
 scenario_cap = 20                           # top-N clusters by aggregate output volume
 ```
 
@@ -672,7 +672,7 @@ Daemon mode is a v2 optimization. If B-series benchmark on the author's corpus s
 │              them. Real data + real threats = real proof.    │
 ├──────────────────────────────────────────────────────────────┤
 │  6. REPORT   report.ts emits HTML + JSON dashboard to        │
-│              ~/.gstack/compact/benchmark/latest/              │
+│              ./dstack/compact/benchmark/latest/              │
 │              "On YOUR 30 days of Claude Code data, gstack    │
 │              compact would save X tokens in Y scenarios."    │
 └──────────────────────────────────────────────────────────────┘
@@ -685,7 +685,7 @@ Daemon mode is a v2 optimization. If B-series benchmark on the author's corpus s
 
 **Privacy (non-negotiable):**
 - Reads `~/.claude/projects/**/*.jsonl` locally only. Never uploads. Never shares. Never logs scenarios to telemetry.
-- Output files live under `~/.gstack/compact/benchmark/` with mode `0600`.
+- Output files live under `./dstack/compact/benchmark/` with mode `0600`.
 - The command prints a confirmation banner: *"Scanning local transcripts at ~/.claude/projects/ (local-only; nothing leaves this machine)."*
 - Any future community corpus is a separate v2 workstream built from hand-contributed, secret-scanned fixtures on OSS projects.
 
@@ -720,7 +720,7 @@ Draw from:
 - tokenjuice's fixture directory patterns (`tests/fixtures/`)
 - RTK's per-command examples (their README lists real before/after metrics; verify independently)
 - gstack's own test output (eat our own dog food)
-- Real failure archives from `~/.gstack/compact/tee/` (once volunteers contribute)
+- Real failure archives from `./dstack/compact/tee/` (once volunteers contribute)
 - **B-series real-world scenarios are the primary corpus for reduction measurements.**
 
 ## Pattern adoption table

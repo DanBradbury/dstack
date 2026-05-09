@@ -3,8 +3,8 @@
  * per-site notes the agent writes for itself.
  *
  * Scope:
- *   - per-project: ~/.gstack/projects/<slug>/domain-skills.jsonl
- *   - global:      ~/.gstack/global-domain-skills.jsonl
+ *   - per-project: ./dstack/projects/<slug>/domain-skills.jsonl
+ *   - global:      ./dstack/global-domain-skills.jsonl
  *
  * State machine (T6 — defense against persistent prompt poisoning):
  *

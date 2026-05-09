@@ -35,7 +35,7 @@ During V1 planning, a pacing workstream was drafted: rank findings, auto-accept 
 
 ## Scope for V1.1
 
-1. **Define session-state model.** Per-skill-invocation vs per-phase vs per-conversation. Backing store: likely a JSON file at `~/.gstack/sessions/<session_id>/pacing-state.json` that records which findings surfaced vs. auto-accepted per phase. Cleanup: same TTL as existing session tracking in preamble.
+1. **Define session-state model.** Per-skill-invocation vs per-phase vs per-conversation. Backing store: likely a JSON file at `./dstack/sessions/<session_id>/pacing-state.json` that records which findings surfaced vs. auto-accepted per phase. Cleanup: same TTL as existing session tracking in preamble.
 
 2. **Add `phase` field to question-log.jsonl schema.** Classify each AskUserQuestion by which review phase it came from (CEO / Design / Eng / DX / other). Migration: existing entries default to `"unknown"`. Non-breaking schema extension.
 

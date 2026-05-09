@@ -17,7 +17,7 @@ bun run build        # gen docs + compile binaries
 bun run gen:skill-docs  # regenerate SKILL.md files from templates
 bun run skill:check  # health dashboard for all skills
 bun run dev:skill    # watch mode: auto-regen + validate on change
-bun run eval:list    # list all eval runs from ~/.gstack-dev/evals/
+bun run eval:list    # list all eval runs from ./dstack-dev/evals/
 bun run eval:compare # compare two eval runs (auto-picks most recent)
 bun run eval:summary # aggregate stats across all eval runs
 bun run slop          # full slop-scan report (all files)
@@ -47,7 +47,7 @@ the key the same way when env is supplied as an object (confirmed failure mode).
 Instead, mutate `process.env.ANTHROPIC_API_KEY` ambiently before the call and
 restore in `finally`.
 E2E tests stream progress in real-time (tool-by-tool via `--output-format stream-json
---verbose`). Results are persisted to `~/.gstack-dev/evals/` with auto-comparison
+--verbose`). Results are persisted to `./dstack-dev/evals/` with auto-comparison
 against the previous run.
 
 **Diff-based test selection:** `test:evals` and `test:e2e` auto-select tests based
@@ -262,7 +262,7 @@ surface, never forwarded) and a tunnel listener (locked allowlist: `/connect`,
 `/sidebar-chat`). ngrok forwards only the tunnel port. Root tokens over the tunnel
 return 403. SSE endpoints use a 30-minute HttpOnly `gstack_sse` cookie minted via
 `POST /sse-session` (never valid against `/command`). Tunnel-surface rejections go
-to `~/.gstack/security/attempts.jsonl` via `tunnel-denial-log.ts`. Before editing
+to `./dstack/security/attempts.jsonl` via `tunnel-denial-log.ts`. Before editing
 `server.ts`, `sse-session-cookie.ts`, or `tunnel-denial-log.ts`, read
 [ARCHITECTURE.md](ARCHITECTURE.md#dual-listener-tunnel-architecture-v1600) —
 the module boundary (no imports from `token-registry.ts` into `sse-session-cookie.ts`)
@@ -282,7 +282,7 @@ is load-bearing for scope isolation.
 compiled browse binary. `@huggingface/transformers` v4 requires `onnxruntime-node`
 which fails to `dlopen` from Bun compile's temp extract dir. Only `security.ts`
 (pure-string operations — canary, verdict combiner, attack log, status) is safe
-for `server.ts`. See `~/.gstack/projects/garrytan-gstack/ceo-plans/2026-04-19-prompt-injection-guard.md`
+for `server.ts`. See `./dstack/projects/garrytan-gstack/ceo-plans/2026-04-19-prompt-injection-guard.md`
 §"Pre-Impl Gate 1 Outcome" for full architectural decision.
 
 **Thresholds** (in `security.ts`):
@@ -303,12 +303,12 @@ always BLOCKs (deterministic).
   agreement. 721MB first-run download. With ensemble enabled, BLOCK requires
   2-of-3 ML classifiers agreeing at >= WARN (testsavant, deberta, transcript).
   Without ensemble (default), BLOCK requires testsavant + transcript at >= WARN.
-- Classifier model cache: `~/.gstack/models/testsavant-small/` (112MB, first run only)
-  plus `~/.gstack/models/deberta-v3-injection/` (721MB, only when ensemble enabled)
-- Attack log: `~/.gstack/security/attempts.jsonl` (salted sha256 + domain only,
+- Classifier model cache: `./dstack/models/testsavant-small/` (112MB, first run only)
+  plus `./dstack/models/deberta-v3-injection/` (721MB, only when ensemble enabled)
+- Attack log: `./dstack/security/attempts.jsonl` (salted sha256 + domain only,
   rotates at 10MB, 5 generations)
-- Per-device salt: `~/.gstack/security/device-salt` (0600)
-- Session state: `~/.gstack/security/session-state.json` (cross-process, atomic)
+- Per-device salt: `./dstack/security/device-salt` (0600)
+- Session state: `./dstack/security/session-state.json` (cross-process, atomic)
 
 ## Dev symlink awareness
 
@@ -328,7 +328,7 @@ symlink or a real copy. If it's a symlink to your working directory, be aware th
 with a SKILL.md symlink inside (e.g., `qa/SKILL.md -> gstack/qa/SKILL.md`). This
 ensures Claude discovers them as top-level skills, not nested under `gstack/`.
 Names are either short (`qa`) or namespaced (`gstack-qa`), controlled by
-`skill_prefix` in `~/.gstack/config.yaml`. Pass `--no-prefix` or `--prefix` to
+`skill_prefix` in `./dstack/config.yaml`. Pass `--no-prefix` or `--prefix` to
 skip the interactive prompt.
 
 **Note:** Vendoring gstack into a project's repo is deprecated. Use global install
@@ -666,7 +666,7 @@ builder philosophy.
 
 ## Local plans
 
-Contributors can store long-range vision docs and design documents in `~/.gstack-dev/plans/`.
+Contributors can store long-range vision docs and design documents in `./dstack-dev/plans/`.
 These are local-only (not checked in). When reviewing TODOS.md, check `plans/` for candidates
 that may be ready to promote to TODOs or implement.
 

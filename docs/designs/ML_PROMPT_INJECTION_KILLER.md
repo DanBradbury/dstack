@@ -3,7 +3,7 @@
 **Status:** P0 TODO (follow-up to sidebar security fix PR)
 **Branch:** garrytan/extension-prompt-injection-defense
 **Date:** 2026-03-28
-**CEO Plan:** ~/.gstack/projects/garrytan-gstack/ceo-plans/2026-03-28-sidebar-prompt-injection-defense.md
+**CEO Plan:** ./dstack/projects/garrytan-gstack/ceo-plans/2026-03-28-sidebar-prompt-injection-defense.md
 
 ## The Problem
 
@@ -236,7 +236,7 @@ Sophisticated attacks avoid this, which is why it's one layer among seven.
 ### Local Logging (always on)
 
 ```json
-// ~/.gstack/security/attempts.jsonl
+// ./dstack/security/attempts.jsonl
 {
   "ts": "2026-03-28T22:00:00Z",
   "url_domain": "example.com",
@@ -286,7 +286,7 @@ new `/security-status` endpoint). Sidepanel polls `/health` and reads the securi
 
 ```
 1. Download BrowseSafe-Bench dataset (3,680 cases) on first run
-2. Cache to ~/.gstack/models/browsesafe-bench/ (not re-downloaded in CI)
+2. Cache to ./dstack/models/browsesafe-bench/ (not re-downloaded in CI)
 3. Run every case through checkInjection()
 4. Report:
    - Detection rate per attack type (11 types)
@@ -417,7 +417,7 @@ apply to this ML classifier PR:
 
 - [ ] Add `@huggingface/transformers` to package.json
 - [ ] Create `browse/src/security.ts` with full public API
-- [ ] Implement `loadModel()` with download-on-first-use to ~/.gstack/models/
+- [ ] Implement `loadModel()` with download-on-first-use to ./dstack/models/
 - [ ] Implement `checkInjection()` with DeBERTa + regex + encoding normalization
 - [ ] Implement `scanPageContent()` (same classifier, different input)
 - [ ] Implement `injectCanary()` + `checkCanary()`

@@ -18,7 +18,7 @@
  *
  * Set up:
  *   - tmpDir as GSTACK_HOME (isolated state, doesn't touch the user's
- *     real ~/.gstack)
+ *     real ./dstack)
  *   - question_tuning=true in the tmp config
  *   - preference for plan-ceo-review-mode → never-ask (source: plan-tune)
  *

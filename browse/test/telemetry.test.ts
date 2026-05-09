@@ -30,7 +30,7 @@ async function readEvents(): Promise<any[]> {
   }
 }
 
-describe('telemetry: signals fire to ~/.gstack/analytics/browse-telemetry.jsonl', () => {
+describe('telemetry: signals fire to ./dstack/analytics/browse-telemetry.jsonl', () => {
   it('logTelemetry writes a JSONL line with ts injected', async () => {
     const { logTelemetry, _resetTelemetryCache } = await import('../src/telemetry');
     _resetTelemetryCache();

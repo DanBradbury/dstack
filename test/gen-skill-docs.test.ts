@@ -283,7 +283,7 @@ describe('gen-skill-docs', () => {
   test('generated SKILL.md contains telemetry line', () => {
     const content = fs.readFileSync(path.join(ROOT, 'SKILL.md'), 'utf-8');
     expect(content).toContain('skill-usage.jsonl');
-    expect(content).toContain('~/.gstack/analytics');
+    expect(content).toContain('./dstack/analytics');
   });
 
   test('plan-review generated preambles stay under the Option A budget', () => {
@@ -337,7 +337,7 @@ describe('gen-skill-docs', () => {
       // Must NOT have a bare shell glob ".pending-*" outside of find's -name argument
       expect(content).not.toMatch(/for _PF in [^\n]*\/\.pending-\*/);
       // Must use find to avoid zsh NOMATCH error on glob expansion
-      expect(content).toContain("find ~/.gstack/analytics -maxdepth 1 -name '.pending-*'");
+      expect(content).toContain("find ./dstack/analytics -maxdepth 1 -name '.pending-*'");
     }
   });
 
@@ -2715,7 +2715,7 @@ describe('gen-skill-docs prefix warning (#620/#578)', () => {
   test('warns about skill_prefix when config has prefix=true', () => {
     const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'gstack-prefix-warn-'));
     try {
-      // Create a fake ~/.gstack/config.yaml with skill_prefix: true
+      // Create a fake ./dstack/config.yaml with skill_prefix: true
       const fakeHome = tmpDir;
       const fakeGstack = path.join(fakeHome, '.gstack');
       fs.mkdirSync(fakeGstack, { recursive: true });

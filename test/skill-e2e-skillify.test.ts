@@ -15,7 +15,7 @@
  *      (no matching skill) drives $B primitives, returns JSON, suggests
  *      /skillify.
  *   3. skillify-happy-path — /scrape then /skillify in one session.
- *      Skill written to ~/.gstack/browser-skills/<name>/ with full
+ *      Skill written to ./dstack/browser-skills/<name>/ with full
  *      file tree, $B skill test passes.
  *   4. skillify-provenance-refusal — cold /skillify with no prior
  *      /scrape refuses with the D1 message; nothing on disk.
@@ -291,7 +291,7 @@ Do NOT use AskUserQuestion.`,
      for both the name/tier question AND the approval gate.
 
 Use HOME=${workDir} so all skill writes land under the test workdir
-(translates to ~/.gstack/browser-skills/<name>/ via $HOME).
+(translates to ./dstack/browser-skills/<name>/ via $HOME).
 
 Do NOT halt for clarification.`,
       workingDirectory: workDir,

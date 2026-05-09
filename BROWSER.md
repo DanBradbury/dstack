@@ -31,7 +31,7 @@ $B screenshot /tmp/hn.png
 
 # Codify a repeated flow
 /scrape latest hacker news stories
-/skillify                        # writes ~/.gstack/browser-skills/hn-front/...
+/skillify                        # writes ./dstack/browser-skills/hn-front/...
 /scrape hacker news front page   # second call: 200ms via the codified skill
 
 # Watch Claude work in real time
@@ -127,7 +127,7 @@ browser-skill on disk. Eleven steps, three locked contracts:
 - **D2 — Synthesis input slice.** Extracts ONLY the final-attempt `$B` calls
   that produced the JSON the user accepted, plus the user's intent string.
   Drops failed selectors, drops chat, drops earlier-session content.
-- **D3 — Atomic write.** Stages everything to `~/.gstack/.tmp/skillify-<spawnId>/`,
+- **D3 — Atomic write.** Stages everything to `./dstack/.tmp/skillify-<spawnId>/`,
   runs `$B skill test` against the temp dir, and only renames into the final
   tier path on test pass + user approval. Test fail or rejection: `rm -rf` the
   temp dir entirely. No half-written skill ever appears in `$B skill list`.
@@ -427,7 +427,7 @@ tier is printed inline next to each skill name:
 | Tier | Path | When |
 |------|------|------|
 | **Project** | `<project>/.gstack/browser-skills/<name>/` | Project-specific skills (committed or gitignored) |
-| **Global** | `~/.gstack/browser-skills/<name>/` | Per-user skills, all projects |
+| **Global** | `./dstack/browser-skills/<name>/` | Per-user skills, all projects |
 | **Bundled** | `<gstack-install>/browser-skills/<name>/` | Ships with gstack, read-only |
 
 ### Trust model
@@ -461,7 +461,7 @@ impossible — the SDK is frozen at the version the skill was authored against.
 
 `browse/src/browser-skill-write.ts` provides three primitives:
 
-- `stageSkill(opts)` — writes files to `~/.gstack/.tmp/skillify-<spawnId>/<name>/`
+- `stageSkill(opts)` — writes files to `./dstack/.tmp/skillify-<spawnId>/<name>/`
   with restrictive perms.
 - `commitSkill(opts)` — atomic `fs.renameSync` into the final tier path.
   Refuses to follow symlinked staging dirs (`lstat` check), refuses to
@@ -496,7 +496,7 @@ agents do not set it manually.
 
 Storage:
 - Per-project: `<project>/.gstack/domain-skills/<host>.md`
-- Global: `~/.gstack/domain-skills/<host>.md`
+- Global: `./dstack/domain-skills/<host>.md`
 
 Source: `browse/src/domain-skills.ts`, `domain-skill-commands.ts`.
 
@@ -718,9 +718,9 @@ remote agent that tries them gets a 403 plus a fresh entry in the denial log.
 
 ### Tunnel denial log
 
-`~/.gstack/security/attempts.jsonl` — append-only, salted SHA-256 of source
+`./dstack/security/attempts.jsonl` — append-only, salted SHA-256 of source
 + domain only (no raw IP, no full request body), rotates at 10MB with 5
-generations. Per-device salt at `~/.gstack/security/device-salt` (mode 0600).
+generations. Per-device salt at `./dstack/security/device-salt` (mode 0600).
 
 See [`docs/REMOTE_BROWSER_ACCESS.md`](docs/REMOTE_BROWSER_ACCESS.md) for the
 full operator guide.
@@ -816,13 +816,13 @@ BLOCKs (deterministic).**
   ProtectAI DeBERTa-v3-base-injection-onnx as L4c classifier. 721MB
   first-run download. With ensemble enabled, BLOCK requires 2-of-3 ML
   classifiers agreeing at >= WARN.
-- Classifier model cache: `~/.gstack/models/testsavant-small/` (112MB, first
-  run only) plus `~/.gstack/models/deberta-v3-injection/` (721MB, only when
+- Classifier model cache: `./dstack/models/testsavant-small/` (112MB, first
+  run only) plus `./dstack/models/deberta-v3-injection/` (721MB, only when
   ensemble enabled).
-- Attack log: `~/.gstack/security/attempts.jsonl` (salted SHA-256 + domain
+- Attack log: `./dstack/security/attempts.jsonl` (salted SHA-256 + domain
   only, rotates at 10MB, 5 generations).
-- Per-device salt: `~/.gstack/security/device-salt` (0600).
-- Session state: `~/.gstack/security/session-state.json` (cross-process,
+- Per-device salt: `./dstack/security/device-salt` (0600).
+- Session state: `./dstack/security/session-state.json` (cross-process,
   atomic).
 
 A shield icon in the sidebar header shows the live status. See
@@ -1143,7 +1143,7 @@ collisions.
 
 Browser-skills three-tier lookup walks project → global → bundled, so a
 project-tier skill at `/code/project-a/.gstack/browser-skills/foo/` shadows
-the global `~/.gstack/browser-skills/foo/` only inside project-a.
+the global `./dstack/browser-skills/foo/` only inside project-a.
 
 ---
 
@@ -1200,7 +1200,7 @@ browse/
 │   ├── token-registry.ts        # Mint/validate/revoke for root + setup keys + scoped tokens
 │   ├── sse-session-cookie.ts    # 30-min HttpOnly cookie for /activity/stream + /inspector/events
 │   ├── pty-session-cookie.ts    # Separate scope: live Claude PTY auth
-│   ├── tunnel-denial-log.ts     # ~/.gstack/security/attempts.jsonl writer (salted)
+│   ├── tunnel-denial-log.ts     # ./dstack/security/attempts.jsonl writer (salted)
 │   ├── path-security.ts         # validateOutputPath / validateReadPath / validateTempPath
 │   ├── url-validation.ts        # URL safety checks for goto
 │   ├── content-security.ts      # L1-L3: datamarking, hidden strip, ARIA, URL blocklist, envelopes
@@ -1308,7 +1308,7 @@ SKILL.md contract (sibling SDK byte-identity, frontmatter schema).
 
 For an agent-written skill: drive the page once with `/scrape <intent>`,
 say `/skillify`, accept the proposed name in the approval gate. The skill
-lands at `~/.gstack/browser-skills/<name>/` after the test passes.
+lands at `./dstack/browser-skills/<name>/` after the test passes.
 
 ### Deploying to the active skill
 

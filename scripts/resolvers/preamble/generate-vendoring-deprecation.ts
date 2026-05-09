@@ -1,7 +1,7 @@
 import type { TemplateContext } from '../types';
 
 export function generateVendoringDeprecation(ctx: TemplateContext): string {
-  return `If \`VENDORED_GSTACK\` is \`yes\`, warn once via AskUserQuestion unless \`~/.gstack/.vendoring-warned-$SLUG\` exists:
+  return `If \`VENDORED_GSTACK\` is \`yes\`, warn once via AskUserQuestion unless \`./dstack/.vendoring-warned-$SLUG\` exists:
 
 > This project has gstack vendored in \`.claude/skills/gstack/\`. Vendoring is deprecated.
 > Migrate to team mode?
@@ -22,7 +22,7 @@ If B: say "OK, you're on your own to keep the vendored copy up to date."
 Always run (regardless of choice):
 \`\`\`bash
 eval "$(${ctx.paths.binDir}/gstack-slug 2>/dev/null)" 2>/dev/null || true
-touch ~/.gstack/.vendoring-warned-\${SLUG:-unknown}
+touch ./dstack/.vendoring-warned-\${SLUG:-unknown}
 \`\`\`
 
 If marker exists, skip.`;

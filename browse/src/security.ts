@@ -15,7 +15,7 @@
  *   L5:    Canary (this module — inject + check)
  *   L6:    Threshold aggregation (this module — combineVerdict)
  *
- * Cross-process state lives at ~/.gstack/security/session-state.json
+ * Cross-process state lives at ./dstack/security/session-state.json
  * (per eng review finding 1.2 — server.ts and sidebar-agent.ts are different processes).
  */
 
@@ -328,7 +328,7 @@ const MAX_LOG_GENERATIONS = 5;
 
 /**
  * Read-or-create the per-device salt used for payload hashing. Salt lives at
- * ~/.gstack/security/device-salt (0600). Random per-device, prevents rainbow
+ * ./dstack/security/device-salt (0600). Random per-device, prevents rainbow
  * table attacks across devices (Codex tier-2 finding).
  */
 let cachedSalt: string | null = null;
@@ -511,7 +511,7 @@ export function readSessionState(): SessionState | null {
 //
 // When a tool-output BLOCK fires, the user gets to see the suspected text
 // and decide. The sidepanel posts to /security-decision, server writes a
-// per-tab file under ~/.gstack/security/decisions/, sidebar-agent polls
+// per-tab file under ./dstack/security/decisions/, sidebar-agent polls
 // for it. File-based on purpose: sidebar-agent.ts is a separate subprocess
 // and this is the same pattern the existing per-tab cancel file uses.
 

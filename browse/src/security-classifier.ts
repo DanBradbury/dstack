@@ -51,7 +51,7 @@ export const HAIKU_MODEL = 'claude-haiku-4-5-20251001';
  *
  * The HuggingFace repo stores model.onnx at the root, but @huggingface/transformers
  * v4 expects it under an `onnx/` subdirectory. We stage the files into the expected
- * layout at ~/.gstack/models/testsavant-small/ on first use.
+ * layout at ./dstack/models/testsavant-small/ on first use.
  *
  * Files (fetched from HF on first use, cached for lifetime of install):
  *   config.json

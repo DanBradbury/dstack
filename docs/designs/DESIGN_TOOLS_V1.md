@@ -202,7 +202,7 @@ width for maximum image fidelity. Users scroll vertically through variants.
 
 **Responsive:** >1200px: comfortable margins. 768-1200px: tighter margins. <768px: full-width, no horizontal scroll.
 
-**Screenshot consent (first-time only for $D evolve):** "This will send a screenshot of your live site to OpenAI for design evolution. [Proceed] [Don't ask again]" Stored in ~/.gstack/config.yaml as design_screenshot_consent.
+**Screenshot consent (first-time only for $D evolve):** "This will send a screenshot of your live site to OpenAI for design evolution. [Proceed] [Don't ask again]" Stored in ./dstack/config.yaml as design_screenshot_consent.
 
 Why sequential: Codex adversarial review identified that raster PNGs are opaque to agents (no DOM, no states, no diffable structure). HTML wireframes preserve a bridge back to code. The PNG is for the human to say "yes, that's right." The HTML is for the agent to say "I know how to build this."
 
@@ -401,12 +401,12 @@ const check = await openai.chat.completions.create({
 **Codex OAuth tokens DO NOT work for image generation.** Tested 2026-03-26: both the Images API and Responses API reject `~/.codex/auth.json` access_token with "Missing scopes: api.model.images.request". Codex CLI also has no native imagegen capability.
 
 **Auth resolution order:**
-1. Read `~/.gstack/openai.json` → `{ "api_key": "sk-..." }` (file permissions 0600)
+1. Read `./dstack/openai.json` → `{ "api_key": "sk-..." }` (file permissions 0600)
 2. Fall back to `OPENAI_API_KEY` environment variable
 3. If neither exists → guided setup flow:
    - Tell user: "Design mockups need an OpenAI API key with image generation permissions. Get one at platform.openai.com/api-keys"
    - Prompt user to paste the key
-   - Write to `~/.gstack/openai.json` with 0600 permissions
+   - Write to `./dstack/openai.json` with 0600 permissions
    - Run a smoke test (generate a 1024x1024 test image) to verify the key works
    - If smoke test passes, proceed. If it fails, show the error and fall back to DESIGN_SKETCH.
 4. If auth exists but API call fails → fall back to DESIGN_SKETCH (existing HTML wireframe approach). Design mockups are a progressive enhancement, never a hard requirement.
@@ -502,7 +502,7 @@ The design binary is compiled and distributed alongside the browse binary:
 
 ### Commit 1: Design binary core (generate + check + compare)
 - `design/src/` with cli.ts, commands.ts, generate.ts, check.ts, brief.ts, session.ts, compare.ts
-- Auth module (read ~/.gstack/openai.json, fallback to env var, guided setup flow)
+- Auth module (read ./dstack/openai.json, fallback to env var, guided setup flow)
 - `compare` command generates HTML comparison board with per-variant feedback textareas
 - `package.json` build command (separate `bun build --compile` from browse)
 - `setup` script integration (including Codex + Kiro asset linking)

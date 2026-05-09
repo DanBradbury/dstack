@@ -562,7 +562,7 @@ describeIfSelected('Review Dashboard Via Attribution', ['review-dashboard-via'],
     const commit = headResult.stdout.toString().trim();
 
     // Pre-populate review log with autoplan-sourced entries
-    // gstack-review-read reads from ~/.gstack/projects/$SLUG/$BRANCH-reviews.jsonl
+    // gstack-review-read reads from ./dstack/projects/$SLUG/$BRANCH-reviews.jsonl
     // For the test, we'll write a mock gstack-review-read script that returns our test data
     const timestamp = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z');
     const reviewData = [

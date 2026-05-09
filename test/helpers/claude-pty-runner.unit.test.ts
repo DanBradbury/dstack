@@ -61,7 +61,7 @@ describe('isPermissionDialogVisible', () => {
     // Isolated to the "allow all edits" clause only — no overlapping
     // "Do you want to proceed?" co-trigger, so this asserts the clause works.
     const sample = `
-      Edit to ~/.gstack/config.yaml
+      Edit to ./dstack/config.yaml
 
       ❯ 1. Yes
         2. Yes, allow all edits during this session
@@ -73,7 +73,7 @@ describe('isPermissionDialogVisible', () => {
   test('matches the "Do you want to proceed?" file-edit confirmation by itself', () => {
     // Separate fixture so weakening this clause is detected by a dedicated test.
     const sample = `
-      Edit to ~/.gstack/config.yaml
+      Edit to ./dstack/config.yaml
 
       Do you want to proceed?
 

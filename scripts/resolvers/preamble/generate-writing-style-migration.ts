@@ -14,8 +14,8 @@ If B: run \`${ctx.paths.binDir}/gstack-config set explain_level terse\`.
 
 Always run (regardless of choice):
 \`\`\`bash
-rm -f ~/.gstack/.writing-style-prompt-pending
-touch ~/.gstack/.writing-style-prompted
+rm -f ./dstack/.writing-style-prompt-pending
+touch ./dstack/.writing-style-prompted
 \`\`\`
 
 Skip if \`WRITING_STYLE_PENDING\` is \`no\`.`;

@@ -1,7 +1,7 @@
 /**
  * Atomic-write helper for agent-authored browser-skills (D3 from Phase 2 plan).
  *
- * /skillify stages a candidate skill into ~/.gstack/.tmp/skillify-<spawnId>/,
+ * /skillify stages a candidate skill into ./dstack/.tmp/skillify-<spawnId>/,
  * runs $B skill test against it, and only renames the directory into its final
  * tier path on success + user approval. On failure or rejection, the staged
  * directory is removed entirely — no half-written skill ever appears in

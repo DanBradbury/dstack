@@ -1,7 +1,7 @@
 /**
  * Lightweight telemetry — DX D9 from /plan-devex-review.
  *
- * Piggybacks on ~/.gstack/analytics/skill-usage.jsonl pattern (existing
+ * Piggybacks on ./dstack/analytics/skill-usage.jsonl pattern (existing
  * gstack telemetry). Hostname + aggregate counters only; no body content,
  * no agent text, no command args. Respects the user's telemetry tier
  * setting (off | anonymous | community) via gstack-config.
