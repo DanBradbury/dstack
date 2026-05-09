@@ -70,45 +70,6 @@ export { generateTestFailureTriage } from './preamble/generate-test-failure-tria
 //   T2: investigate, cso, retro, doc-release, setup-deploy, canary, context-save, context-restore, health
 //   T3: autoplan, codex, design-consult, office-hours, ceo/design/eng-review
 //   T4: ship, review, qa, qa-only, design-review, land-deploy
-export function generatePreamble(ctx: TemplateContext): string {
-  const tier = ctx.preambleTier ?? 4;
-  if (tier < 1 || tier > 4) {
-    throw new Error(`Invalid preamble-tier: ${tier} in ${ctx.tmplPath}. Must be 1-4.`);
-  }
-  const sections = [
-    generatePreambleBash(ctx),
-    // Plan-mode-skill semantics at position 1: after bash (so _SESSION_ID /
-    // _BRANCH / _TEL env vars are live) and before all onboarding gates so
-    // models read the authoritative "AskUserQuestion satisfies plan mode's
-    // end-of-turn" rule before any other instruction. Renders for all skills
-    // (not interactive-gated); the text applies universally.
-    generatePlanModeInfo(ctx),
-    generateUpgradeCheck(ctx),
-    generateWritingStyleMigration(ctx),
-    generateLakeIntro(),
-    generateTelemetryPrompt(ctx),
-    generateProactivePrompt(ctx),
-    generateRoutingInjection(ctx),
-    generateVendoringDeprecation(ctx),
-    generateSpawnedSessionCheck(),
-    // AskUserQuestion Format renders BEFORE the model overlay so the pacing rule
-    // is the ambient default; the overlay's behavioral nudges land as subordinate
-    // patches. Opus 4.7 reads top-to-bottom and absorbs the first pacing directive
-    // it hits; reversing this order regresses plan-review cadence (v1.6.4.0 bug).
-    ...(tier >= 2 ? [generateAskUserFormat(ctx)] : []),
-    generateModelOverlay(ctx),
-    generateVoiceDirective(tier),
-    ...(tier >= 2 ? [
-      generateContextRecovery(ctx),
-      generateWritingStyle(ctx),
-      generateCompletenessSection(),
-      generateConfusionProtocol(),
-      generateContinuousCheckpoint(),
-      generateContextHealth(),
-      generateQuestionTuning(ctx),
-    ] : []),
-    ...(tier >= 3 ? [generateRepoModeSection(), generateSearchBeforeBuildingSection(ctx)] : []),
-    generateCompletionStatus(ctx),
-  ];
-  return sections.filter(s => s && s.trim().length > 0).join('\n\n');
+export function generatePreamble(_ctx: TemplateContext): string {
+  return '';
 }
