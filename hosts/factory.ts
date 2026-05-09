@@ -58,7 +58,6 @@ const factory: HostConfig = {
   },
 
   coAuthorTrailer: 'Co-Authored-By: Factory Droid <droid@users.noreply.github.com>',
-  learningsMode: 'full',
 };
 
 export default factory;

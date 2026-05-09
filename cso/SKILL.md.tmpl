@@ -33,7 +33,6 @@ triggers:
 
 {{PREAMBLE}}
 
-{{GBRAIN_CONTEXT_LOAD}}
 
 # /cso — Chief Security Officer Audit (v2)
 
@@ -115,7 +114,6 @@ grep -q "laravel" composer.json 2>/dev/null && echo "FRAMEWORK: Laravel"
 
 This is NOT a checklist — it's a reasoning phase. The output is understanding, not findings.
 
-{{LEARNINGS_SEARCH}}
 
 ### Phase 1: Attack Surface Census
 
@@ -613,9 +611,7 @@ Write findings to `.gstack/security-reports/{date}-{HHMMSS}.json` using this sch
 
 If `.gstack/` is not in `.gitignore`, note it in findings — security reports should stay local.
 
-{{LEARNINGS_LOG}}
 
-{{GBRAIN_SAVE_RESULTS}}
 
 ## Important Rules
 

@@ -42,7 +42,6 @@ const cursor: HostConfig = {
     linkingStrategy: 'symlink-generated',
   },
 
-  learningsMode: 'basic',
 };
 
 export default cursor;

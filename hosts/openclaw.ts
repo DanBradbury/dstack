@@ -70,7 +70,6 @@ const openclaw: HostConfig = {
   },
 
   coAuthorTrailer: 'Co-Authored-By: OpenClaw Agent <agent@openclaw.ai>',
-  learningsMode: 'basic',
 };
 
 export default openclaw;

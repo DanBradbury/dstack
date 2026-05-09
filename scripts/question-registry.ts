@@ -541,15 +541,6 @@ export const QUESTIONS = {
     options: ['accept', 'skip'],
     description: "Open the Boil-the-Lake essay in your browser? (one-time intro)",
   },
-  'preamble-cross-project-learnings': {
-    id: 'preamble-cross-project-learnings',
-    skill: 'preamble',
-    category: 'approval',
-    door_type: 'two-way',
-    options: ['accept', 'reject'],
-    description: "Enable cross-project learnings search? (local only, helpful for solo devs)",
-  },
-
   // -----------------------------------------------------------------------
   // /plan-tune — the skill itself
   // -----------------------------------------------------------------------

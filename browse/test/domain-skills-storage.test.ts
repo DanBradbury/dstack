@@ -184,7 +184,7 @@ describe('domain-skills: persistence (T5)', () => {
       classifierScore: 0.1,
     });
     // Append a partial/corrupt line manually
-    const file = path.join(TMP_HOME, 'projects', 'test-slug', 'learnings.jsonl');
+    const file = path.join(TMP_HOME, 'projects', 'test-slug', 'domain-skills.jsonl');
     await fs.appendFile(file, '{"type":"domain","host":"bar.co\n', 'utf8');
     // Read should NOT throw; should return only the valid row + skip the corrupt one
     const list = await m.listSkills('test-slug');

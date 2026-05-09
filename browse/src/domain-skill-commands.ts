@@ -75,7 +75,7 @@ function formatSavedOk(row: DomainSkillRow, slug: string): string {
     `Host: ${row.host}`,
     `Bytes: ${row.body.length}`,
     `Version: ${row.version}`,
-    `Stored at: ~/.gstack/projects/${slug}/learnings.jsonl`,
+    `Stored at: ~/.gstack/projects/${slug}/domain-skills.jsonl`,
     '',
     `Next: skill is quarantined and won't fire in prompts until used 3 times`,
     `      without classifier flags. Run $B domain-skill list to see state.`,

@@ -1,9 +1,9 @@
 /**
  * Domain skills — per-site notes the agent writes for itself, persisted
- * alongside /learn's per-project learnings as type:"domain" rows.
+ * per-site notes the agent writes for itself.
  *
  * Scope:
- *   - per-project: ~/.gstack/projects/<slug>/learnings.jsonl
+ *   - per-project: ~/.gstack/projects/<slug>/domain-skills.jsonl
  *   - global:      ~/.gstack/global-domain-skills.jsonl
  *
  * State machine (T6 — defense against persistent prompt poisoning):
@@ -71,7 +71,7 @@ function globalFile(): string {
 }
 
 function projectFile(slug: string): string {
-  return path.join(gstackHome(), 'projects', slug, 'learnings.jsonl');
+  return path.join(gstackHome(), 'projects', slug, 'domain-skills.jsonl');
 }
 
 // ─── Hostname normalization (T3) ──────────────────────────────

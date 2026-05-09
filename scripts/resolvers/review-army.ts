@@ -94,15 +94,7 @@ Construct the prompt for each specialist. The prompt includes:
 
 1. The specialist's checklist content (you already read the file above)
 2. Stack context: "This is a {STACK} project."
-3. Past learnings for this domain (if any exist):
-
-\`\`\`bash
-${ctx.paths.binDir}/gstack-learnings-search --type pitfall --query "{specialist domain}" --limit 5 2>/dev/null || true
-\`\`\`
-
-If learnings are found, include them: "Past learnings for this domain: {learnings}"
-
-4. Instructions:
+3. Instructions:
 
 "You are a specialist code reviewer. Read the checklist below, then run
 \`git diff origin/<base>\` to get the full diff. Apply the checklist against the diff.
@@ -121,7 +113,6 @@ If no findings: output \`NO FINDINGS\` and nothing else.
 Do not output anything else — no preamble, no summary, no commentary.
 
 Stack context: {STACK}
-Past learnings: {learnings or 'none'}
 
 CHECKLIST:
 {checklist content}"

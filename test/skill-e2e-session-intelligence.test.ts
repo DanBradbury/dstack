@@ -44,7 +44,6 @@ describeIfSelected('Session Intelligence E2E', [
     fs.mkdirSync(binDir, { recursive: true });
     for (const script of [
       'gstack-timeline-log', 'gstack-timeline-read', 'gstack-slug',
-      'gstack-learnings-log', 'gstack-learnings-search',
     ]) {
       const src = path.join(ROOT, 'bin', script);
       if (fs.existsSync(src)) {

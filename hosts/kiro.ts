@@ -44,7 +44,6 @@ const kiro: HostConfig = {
     linkingStrategy: 'symlink-generated',
   },
 
-  learningsMode: 'basic',
 };
 
 export default kiro;

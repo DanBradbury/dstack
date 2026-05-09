@@ -67,7 +67,6 @@ const hermes: HostConfig = {
   },
 
   coAuthorTrailer: 'Co-Authored-By: Hermes Agent <agent@nousresearch.com>',
-  learningsMode: 'basic',
 };
 
 export default hermes;

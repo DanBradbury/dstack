@@ -93,13 +93,12 @@ deadlock fixed in #972.
 ## Step 0.6: Resolve portable roots
 
 Before any mode runs, resolve `$PLAN_ROOT` (where plan files live) and `$TMP_ROOT`
-(where ephemeral codex stderr / response captures land) via `bin/gstack-paths`.
+(where ephemeral codex stderr / response captures land).
 This keeps the skill working whether installed as a Claude Code plugin
 (`CLAUDE_PLANS_DIR` set), a global `~/.claude/skills/gstack/` install, or a CI
-container where `HOME` may be unset and `/tmp` may be read-only.
+container where `HOME` may be unset.
 
 ```bash
-eval "$(~/.claude/skills/gstack/bin/gstack-paths)"
 ```
 
 After this, every subsequent bash block in this skill uses `"$PLAN_ROOT"` and

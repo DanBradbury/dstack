@@ -28,33 +28,6 @@ triggers:
   - is this worth building
   - help me think through
   - office hours
-gbrain:
-  schema: 1
-  context_queries:
-    - id: prior-sessions
-      kind: list
-      filter:
-        type: ceo-plan
-        tags_contains: "repo:{repo_slug}"
-      sort: updated_at_desc
-      limit: 5
-      render_as: "## Prior office-hours sessions in this repo"
-    - id: builder-profile
-      kind: filesystem
-      glob: "~/.gstack/builder-profile.jsonl"
-      tail: 1
-      render_as: "## Your builder profile snapshot"
-    - id: design-doc-history
-      kind: filesystem
-      glob: "~/.gstack/projects/{repo_slug}/*-design-*.md"
-      sort: mtime_desc
-      limit: 3
-      render_as: "## Recent design docs for this project"
-    - id: prior-eureka
-      kind: filesystem
-      glob: "~/.gstack/analytics/eureka.jsonl"
-      tail: 5
-      render_as: "## Recent eureka moments"
 ---
 
 {{PREAMBLE}}
@@ -69,7 +42,6 @@ You are a **YC office hours partner**. Your job is to ensure the problem is unde
 
 ---
 
-{{GBRAIN_CONTEXT_LOAD}}
 
 ## Phase 1: Context Gathering
 
@@ -89,7 +61,6 @@ Understand the project and the area the user wants to change.
    ```
    If design docs exist, list them: "Prior designs for this project: [titles + dates]"
 
-{{LEARNINGS_SEARCH}}
 
 5. **Ask: what's your goal with this?** This is a real question, not a formality. The answer determines everything about how the session runs.
 
@@ -474,8 +445,7 @@ After counting signals, append a session entry to the builder profile. This is t
 source of truth for all closing state (tier, resource dedup, journey tracking).
 
 ```bash
-eval "$(~/.claude/skills/gstack/bin/gstack-paths)"
-mkdir -p "$GSTACK_STATE_ROOT"
+mkdir -p "$HOME/.gstack"
 ```
 
 Append one JSON line with these fields (substitute actual values from this session):
@@ -490,8 +460,7 @@ Append one JSON line with these fields (substitute actual values from this sessi
 - `topics`: array of 2-3 topic keywords that describe what this session was about
 
 ```bash
-eval "$(~/.claude/skills/gstack/bin/gstack-paths)"
-echo '{"date":"TIMESTAMP","mode":"MODE","project_slug":"SLUG","signal_count":N,"signals":SIGNALS_ARRAY,"design_doc":"DOC_PATH","assignment":"ASSIGNMENT_TEXT","resources_shown":[],"topics":TOPICS_ARRAY}' >> "$GSTACK_STATE_ROOT/builder-profile.jsonl"
+echo '{"date":"TIMESTAMP","mode":"MODE","project_slug":"SLUG","signal_count":N,"signals":SIGNALS_ARRAY,"design_doc":"DOC_PATH","assignment":"ASSIGNMENT_TEXT","resources_shown":[],"topics":TOPICS_ARRAY}' >> "$HOME/.gstack/builder-profile.jsonl"
 ```
 
 This entry is append-only. The `resources_shown` field will be updated via a second append
@@ -648,7 +617,6 @@ Present the reviewed design doc to the user via AskUserQuestion:
 - B) Revise — specify which sections need changes (loop back to revise those sections)
 - C) Start over — return to Phase 2
 
-{{GBRAIN_SAVE_RESULTS}}
 
 ---
 
@@ -789,8 +757,7 @@ This must feel earned, not broadcast. If the evidence doesn't support it, skip e
 with a narrative arc (not a data table). The arc tells the STORY of their journey in
 second person, referencing specific things they said across sessions. Then open it:
 ```bash
-eval "$(~/.claude/skills/gstack/bin/gstack-paths)"
-open "$GSTACK_STATE_ROOT/builder-journey.md"
+open "$HOME/.gstack/builder-journey.md"
 ```
 
 Then proceed to Founder Resources below.
@@ -892,8 +859,7 @@ PAUL GRAHAM ESSAYS:
 1. Log the selected resource URLs to the builder profile (single source of truth).
 Append a resource-tracking entry:
 ```bash
-eval "$(~/.claude/skills/gstack/bin/gstack-paths)"
-echo '{"date":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'","mode":"resources","project_slug":"'"${SLUG:-unknown}"'","signal_count":0,"signals":[],"design_doc":"","assignment":"","resources_shown":["URL1","URL2","URL3"],"topics":[]}' >> "$GSTACK_STATE_ROOT/builder-profile.jsonl"
+echo '{"date":"'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'","mode":"resources","project_slug":"'"${SLUG:-unknown}"'","signal_count":0,"signals":[],"design_doc":"","assignment":"","resources_shown":["URL1","URL2","URL3"],"topics":[]}' >> "$HOME/.gstack/builder-profile.jsonl"
 ```
 
 2. Log the selection to analytics:
@@ -929,7 +895,6 @@ The design doc at `~/.gstack/projects/` is automatically discoverable by downstr
 
 ---
 
-{{LEARNINGS_LOG}}
 
 ## Important Rules
 

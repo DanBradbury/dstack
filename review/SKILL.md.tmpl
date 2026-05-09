@@ -111,7 +111,6 @@ available (e.g., slop-scan not installed), skip this step silently.
 
 ---
 
-{{LEARNINGS_SEARCH}}
 
 ## Step 4: Critical pass (core review)
 
@@ -283,7 +282,6 @@ Substitute:
 - `findings` = array of per-finding records from Step 5. For each finding (from critical pass and specialists), include: `{"fingerprint":"path:line:category","severity":"CRITICAL|INFORMATIONAL","action":"ACTION"}`. ACTION is `"auto-fixed"` (Step 5b), `"fixed"` (user approved in Step 5d), or `"skipped"` (user chose Skip in Step 5c). Suppressed findings from Step 5.0 are NOT included (they were already recorded in a prior review entry).
 - `COMMIT` = output of `git rev-parse --short HEAD`
 
-{{LEARNINGS_LOG}}
 
 If the review exits early before a real review completes (for example, no diff against the base branch), do **not** write this entry.
 

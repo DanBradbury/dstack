@@ -63,7 +63,7 @@ describe('$B domain-skill (E2E gate tier)', () => {
 
     // Check the JSONL file actually has it
     const jsonl = await fs.readFile(
-      path.join(TMP_HOME, 'projects', 'e2e-test-slug', 'learnings.jsonl'),
+      path.join(TMP_HOME, 'projects', 'e2e-test-slug', 'domain-skills.jsonl'),
       'utf8',
     );
     const lines = jsonl.trim().split('\n').map((l) => JSON.parse(l));

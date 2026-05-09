@@ -250,21 +250,7 @@ describe('gen-skill-docs', () => {
     expect(browseTmpl).toContain('{{PREAMBLE}}');
   });
 
-  test('generated SKILL.md contains operational self-improvement (replaced contributor mode)', () => {
-    const content = fs.readFileSync(path.join(ROOT, 'SKILL.md'), 'utf-8');
-    expect(content).not.toContain('Contributor Mode');
-    expect(content).not.toContain('gstack_contributor');
-    expect(content).not.toContain('contributor-logs');
-    expect(content).toContain('Operational Self-Improvement');
-    expect(content).toContain('gstack-learnings-log');
-    expect(content).toContain('gstack-learnings-search --limit 3');
-  });
 
-  test('generated SKILL.md with LEARNINGS_LOG contains operational type', () => {
-    // Check a skill that has LEARNINGS_LOG (e.g., review)
-    const content = fs.readFileSync(path.join(ROOT, 'review', 'SKILL.md'), 'utf-8');
-    expect(content).toContain('operational');
-  });
 
   test('generated SKILL.md contains session awareness', () => {
     const content = fs.readFileSync(path.join(ROOT, 'SKILL.md'), 'utf-8');
@@ -316,10 +302,6 @@ describe('gen-skill-docs', () => {
     // (Artifacts Sync, Context Recovery, Routing Injection are load-bearing
     // functionality, not optional). Budget is set to current size + small
     // headroom; ratchet down if a future slim trims real bytes.
-    // Ratcheted from 33000 → 35000 when the gbrain context-load block was
-    // added (per /sync-gbrain plan §4). Ratcheted 35000 → 36500 in v1.27.0.0
-    // when generate-brain-sync-block.ts gained the gbrain_mcp_mode probe +
-    // remote-mode ARTIFACTS_SYNC status line (Path 4 of /setup-gbrain).
     for (const skill of reviewSkills) {
       const content = fs.readFileSync(skill.path, 'utf-8');
       const preamble = extractPreambleBeforeWorkflow(content, skill.markers);
@@ -2677,69 +2659,6 @@ describe('codex commands must not use inline $(git rev-parse --show-toplevel) fo
       }
     }
     expect(violations).toEqual([]);
-  });
-});
-
-// ─── Learnings + Confidence Resolver Tests ─────────────────────
-
-describe('LEARNINGS_SEARCH resolver', () => {
-  const SEARCH_SKILLS = ['review', 'ship', 'plan-eng-review', 'investigate', 'office-hours', 'plan-ceo-review'];
-
-  for (const skill of SEARCH_SKILLS) {
-    test(`${skill} generated SKILL.md contains learnings search`, () => {
-      const content = fs.readFileSync(path.join(ROOT, skill, 'SKILL.md'), 'utf-8');
-      expect(content).toContain('Prior Learnings');
-      expect(content).toContain('gstack-learnings-search');
-    });
-  }
-
-  test('learnings search includes cross-project config check', () => {
-    const content = fs.readFileSync(path.join(ROOT, 'review', 'SKILL.md'), 'utf-8');
-    expect(content).toContain('cross_project_learnings');
-    expect(content).toContain('--cross-project');
-  });
-
-  test('learnings search includes AskUserQuestion for first-time cross-project opt-in', () => {
-    const content = fs.readFileSync(path.join(ROOT, 'review', 'SKILL.md'), 'utf-8');
-    expect(content).toContain('Enable cross-project learnings');
-    expect(content).toContain('project-scoped only');
-  });
-
-  test('learnings search mentions prior learning applied display format', () => {
-    const content = fs.readFileSync(path.join(ROOT, 'review', 'SKILL.md'), 'utf-8');
-    expect(content).toContain('Prior learning applied');
-  });
-});
-
-describe('LEARNINGS_LOG resolver', () => {
-  const LOG_SKILLS = ['review', 'retro', 'investigate'];
-
-  for (const skill of LOG_SKILLS) {
-    test(`${skill} generated SKILL.md contains learnings log`, () => {
-      const content = fs.readFileSync(path.join(ROOT, skill, 'SKILL.md'), 'utf-8');
-      expect(content).toContain('Capture Learnings');
-      expect(content).toContain('gstack-learnings-log');
-    });
-  }
-
-  test('learnings log documents all type values', () => {
-    const content = fs.readFileSync(path.join(ROOT, 'review', 'SKILL.md'), 'utf-8');
-    for (const type of ['pattern', 'pitfall', 'preference', 'architecture', 'tool']) {
-      expect(content).toContain(type);
-    }
-  });
-
-  test('learnings log documents all source values', () => {
-    const content = fs.readFileSync(path.join(ROOT, 'review', 'SKILL.md'), 'utf-8');
-    for (const source of ['observed', 'user-stated', 'inferred', 'cross-model']) {
-      expect(content).toContain(source);
-    }
-  });
-
-  test('learnings log includes files field for staleness detection', () => {
-    const content = fs.readFileSync(path.join(ROOT, 'review', 'SKILL.md'), 'utf-8');
-    expect(content).toContain('"files"');
-    expect(content).toContain('staleness detection');
   });
 });
 

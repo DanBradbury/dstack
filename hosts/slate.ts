@@ -42,7 +42,6 @@ const slate: HostConfig = {
     linkingStrategy: 'symlink-generated',
   },
 
-  learningsMode: 'basic',
 };
 
 export default slate;

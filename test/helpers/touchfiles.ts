@@ -42,7 +42,6 @@ export const E2E_TOUCHFILES: Record<string, string[]> = {
   'skillmd-outside-git':      ['SKILL.md', 'SKILL.md.tmpl', 'scripts/gen-skill-docs.ts'],
 
   'session-awareness':        ['SKILL.md', 'SKILL.md.tmpl', 'scripts/gen-skill-docs.ts'],
-  'operational-learning':     ['scripts/resolvers/preamble.ts', 'bin/gstack-learnings-log'],
 
   // QA (+ test-server dependency)
   'qa-quick':       ['qa/**', 'browse/src/**', 'browse/test/test-server.ts'],
@@ -143,14 +142,6 @@ export const E2E_TOUCHFILES: Record<string, string[]> = {
   'plan-ceo-finding-floor':      ['plan-ceo-review/**', 'scripts/resolvers/preamble.ts', 'scripts/resolvers/preamble/generate-ask-user-format.ts', 'scripts/resolvers/preamble/generate-completion-status.ts', 'scripts/resolvers/review.ts', 'test/helpers/claude-pty-runner.ts', 'test/fixtures/forcing-finding-seeds.ts', 'test/skill-e2e-plan-ceo-finding-floor.test.ts'],
   'plan-design-finding-floor':   ['plan-design-review/**', 'scripts/resolvers/preamble.ts', 'scripts/resolvers/preamble/generate-ask-user-format.ts', 'scripts/resolvers/preamble/generate-completion-status.ts', 'scripts/resolvers/review.ts', 'test/helpers/claude-pty-runner.ts', 'test/fixtures/forcing-finding-seeds.ts', 'test/skill-e2e-plan-design-finding-floor.test.ts'],
   'plan-devex-finding-floor':    ['plan-devex-review/**', 'scripts/resolvers/preamble.ts', 'scripts/resolvers/preamble/generate-ask-user-format.ts', 'scripts/resolvers/preamble/generate-completion-status.ts', 'scripts/resolvers/review.ts', 'test/helpers/claude-pty-runner.ts', 'test/fixtures/forcing-finding-seeds.ts', 'test/skill-e2e-plan-devex-finding-floor.test.ts'],
-  'brain-privacy-gate':           ['scripts/resolvers/preamble/generate-brain-sync-block.ts', 'scripts/resolvers/preamble.ts', 'bin/gstack-brain-sync', 'bin/gstack-artifacts-init', 'bin/gstack-config', 'test/helpers/agent-sdk-runner.ts'],
-
-  // /setup-gbrain Path 4 (Remote MCP) — happy + bad-token end-to-end via
-  // Agent SDK. Gate-tier (deterministic stub server, fixed inputs); fires
-  // when the skill template, the verify helper, the artifacts-init helper,
-  // or the detect script changes.
-  'setup-gbrain-remote':          ['setup-gbrain/SKILL.md.tmpl', 'bin/gstack-gbrain-mcp-verify', 'bin/gstack-artifacts-init', 'bin/gstack-gbrain-detect', 'test/helpers/agent-sdk-runner.ts'],
-  'setup-gbrain-bad-token':       ['setup-gbrain/SKILL.md.tmpl', 'bin/gstack-gbrain-mcp-verify', 'test/helpers/agent-sdk-runner.ts'],
 
   // AskUserQuestion format regression (RECOMMENDATION + Completeness: N/10)
   // Fires when either template OR the two preamble resolvers change.
@@ -204,12 +195,9 @@ export const E2E_TOUCHFILES: Record<string, string[]> = {
   'cso-diff-mode':    ['cso/**'],
   'cso-infra-scope':  ['cso/**'],
 
-  // Learnings
-  'learnings-show': ['learn/**', 'bin/gstack-learnings-search', 'bin/gstack-learnings-log', 'scripts/resolvers/learnings.ts'],
-
   // Session Intelligence (timeline, context recovery, /context-save + /context-restore)
   'timeline-event-flow':            ['bin/gstack-timeline-log', 'bin/gstack-timeline-read'],
-  'context-recovery-artifacts':     ['scripts/resolvers/preamble.ts', 'bin/gstack-timeline-log', 'bin/gstack-slug', 'learn/**'],
+  'context-recovery-artifacts':     ['scripts/resolvers/preamble.ts', 'bin/gstack-timeline-log', 'bin/gstack-slug'],
   'context-save-writes-file':       ['context-save/**', 'bin/gstack-slug'],
   'context-restore-loads-latest':   ['context-restore/**', 'bin/gstack-slug'],
 
@@ -365,8 +353,6 @@ export const E2E_TIERS: Record<string, 'gate' | 'periodic'> = {
   'skillmd-no-local-binary': 'gate',
   'skillmd-outside-git': 'gate',
   'session-awareness': 'gate',
-  'operational-learning': 'gate',
-
   // QA — gate for functional, periodic for quality/benchmarks
   'qa-quick': 'gate',
   'qa-b6-static': 'periodic',
@@ -444,20 +430,8 @@ export const E2E_TIERS: Record<string, 'gate' | 'periodic'> = {
   'plan-design-finding-floor': 'gate',
   'plan-devex-finding-floor':  'gate',
 
-  // Privacy gate for gstack-brain-sync — periodic (non-deterministic LLM call,
-  // costs ~$0.30-$0.50 per run, not needed on every commit)
-  'brain-privacy-gate': 'periodic',
-
-  // /setup-gbrain Path 4 (Remote MCP) — periodic-tier. The stub HTTP
-  // server is deterministic but the model's interpretation of "follow
-  // Path 4 only" is not — assertions on which steps the model ran are
-  // flaky. The deterministic gate-tier coverage for Path 4 lives in
-  // test/setup-gbrain-path4-structure.test.ts (free, <200ms). These
   // E2E tests stay available for on-demand verification of the live
   // model's behavior against a stub MCP server.
-  'setup-gbrain-remote': 'periodic',
-  'setup-gbrain-bad-token': 'periodic',
-
   // AskUserQuestion format regression — periodic (Opus 4.7 non-deterministic benchmark)
   'plan-ceo-review-format-mode': 'periodic',
   'plan-ceo-review-format-approach': 'periodic',
@@ -531,9 +505,6 @@ export const E2E_TIERS: Record<string, 'gate' | 'periodic'> = {
   'cso-full-audit': 'gate',      // Hardcoded secrets detection
   'cso-diff-mode': 'gate',
   'cso-infra-scope': 'periodic',
-
-  // Learnings — gate (functional guardrail: seeded learnings must appear)
-  'learnings-show': 'gate',
 
   // Document-release — gate (CHANGELOG guardrail)
   'document-release': 'gate',

@@ -91,7 +91,6 @@ function setupSkillifyWorkdir(suffix: string, installSkills: string[] = ['scrape
   for (const script of [
     'gstack-timeline-log', 'gstack-slug', 'gstack-config',
     'gstack-update-check', 'gstack-repo-mode',
-    'gstack-learnings-log', 'gstack-learnings-search',
   ]) {
     const src = path.join(ROOT, 'bin', script);
     if (fs.existsSync(src)) {

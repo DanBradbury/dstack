@@ -22,21 +22,11 @@ Now edit any `SKILL.md`, invoke it in Claude Code (e.g. `/review`), and see your
 bin/dev-teardown               # deactivate — back to your global install
 ```
 
-## Operational self-improvement
-
-gstack automatically learns from failures. At the end of every skill session, the agent
-reflects on what went wrong (CLI errors, wrong approaches, project quirks) and logs
-operational learnings to `~/.gstack/projects/{slug}/learnings.jsonl`. Future sessions
-surface these learnings automatically, so gstack gets smarter on your codebase over time.
-
-No setup needed. Learnings are logged automatically. View them with `/learn`.
-
 ### The contributor workflow
 
-1. **Use gstack normally** — operational learnings are captured automatically
-2. **Check your learnings:** `/learn` or `ls ~/.gstack/projects/*/learnings.jsonl`
-3. **Fork and clone gstack** (if you haven't already)
-4. **Symlink your fork into the project where you hit the bug:**
+1. **Use gstack normally**
+2. **Fork and clone gstack** (if you haven't already)
+3. **Symlink your fork into the project where you hit the bug:**
    ```bash
    # In your core project (the one where gstack annoyed you)
    ln -sfn /path/to/your/gstack-fork .claude/skills/gstack
@@ -44,9 +34,9 @@ No setup needed. Learnings are logged automatically. View them with `/learn`.
    ```
    Setup creates per-skill directories with SKILL.md symlinks inside (`qa/SKILL.md -> gstack/qa/SKILL.md`)
    and asks your prefix preference. Pass `--no-prefix` to skip the prompt and use short names.
-5. **Fix the issue** — your changes are live immediately in this project
-6. **Test by actually using gstack** — do the thing that annoyed you, verify it's fixed
-7. **Open a PR from your fork**
+4. **Fix the issue** — your changes are live immediately in this project
+5. **Test by actually using gstack** — do the thing that annoyed you, verify it's fixed
+6. **Open a PR from your fork**
 
 This is the best way to contribute: fix gstack while doing your real work, in the
 project where you actually felt the pain.

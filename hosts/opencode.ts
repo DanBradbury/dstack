@@ -42,7 +42,6 @@ const opencode: HostConfig = {
     linkingStrategy: 'symlink-generated',
   },
 
-  learningsMode: 'basic',
 };
 
 export default opencode;

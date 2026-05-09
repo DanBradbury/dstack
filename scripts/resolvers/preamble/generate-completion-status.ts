@@ -40,16 +40,6 @@ When completing a skill workflow, report status using one of:
 
 Escalate after 3 failed attempts, uncertain security-sensitive changes, or scope you cannot verify. Format: \`STATUS\`, \`REASON\`, \`ATTEMPTED\`, \`RECOMMENDATION\`.
 
-## Operational Self-Improvement
-
-Before completing, if you discovered a durable project quirk or command fix that would save 5+ minutes next time, log it:
-
-\`\`\`bash
-${ctx.paths.binDir}/gstack-learnings-log '{"skill":"SKILL_NAME","type":"operational","key":"SHORT_KEY","insight":"DESCRIPTION","confidence":N,"source":"observed"}'
-\`\`\`
-
-Do not log obvious facts or one-time transient errors.
-
 ## Telemetry (run last)
 
 After workflow completion, log telemetry. Use skill \`name:\` from frontmatter. OUTCOME is success/error/abort/unknown.
